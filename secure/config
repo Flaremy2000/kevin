@@ -1,0 +1,10 @@
+{
+    "conexion": {
+        "server" : "localhost",
+        "user" : "flaremyn_flaremy",
+        "password" : "Jeremy2000",
+        "database" : "flaremyn_avicola",
+        "charset" : "utf8",
+        "port": "3306"
+    }
+}
