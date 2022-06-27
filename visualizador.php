@@ -21,4 +21,10 @@ class visualizador extends conexion{
         $query->execute();
         return $query;
     }
+
+    function obtener_iluminacion(){
+        $query = $this->conexion->prepare("SELECT * FROM iluminacion ORDER BY Id_temperatura desc limit 1");
+        $query->execute();
+        return $query;
+    }
 }
