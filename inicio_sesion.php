@@ -35,6 +35,21 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['loguin'])){
         error("0"); // No existe el usuario
     }
 }
+
+
+if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['cedula'])){
+
+    $ced = $_GET['cedula'];
+
+    $usuario = array();
+    $resp = $user->obtener_usuario($ced);
+
+    if($resp->rowCount()){
+        error("1"); // Existe un usuario
+    }else{
+        error("0"); // No existe el usuario
+    }
+}
     
 function error($mensaje){
     print_r(json_encode(array('mensaje' => $mensaje)));

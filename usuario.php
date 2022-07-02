@@ -9,6 +9,7 @@ class usuario extends conexion{
         $query->execute(['id' => $cedula]);
         return $query;
     }
+
     function obtener_usuarios(){
         $query = $this->conexion->prepare("SELECT * FROM usuario");
         $query->execute();
