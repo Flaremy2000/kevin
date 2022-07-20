@@ -16,6 +16,12 @@ class usuario extends conexion{
         return $query;
     }
 
+    function eliminar_usuario($id){
+        $query = $this->conexion->prepare("DELETE FROM `usuario` WHERE `Id_user` = :id");
+        $query->execute(['id' => $id]);
+        return $query;
+    }
+
     function registrar_usuario($cedula, $nombre, $apellido, $fecha, $contrasenia, $cargo){
         $query = $this->conexion->prepare("INSERT INTO usuario (`cedula`, `nombre`, `apellido`, `fecha_nacimiento`, `contrasenia`, `estado`) VALUES (:ced, :nombre, :apellido, :nacimiento, :contrasenia, :cargo)");
         $query->bindParam(':ced', $cedula, PDO::PARAM_STR);

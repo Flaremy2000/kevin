@@ -22,6 +22,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['cedula'])){
     }
 }
 
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['lista'])){
+
+    $resp = $usuario->obtener_usuarios();
+
+    $usuarios = array();
+
+    if ($resp->rowCount()){
+        while ($row = $resp->fetch(PDO::FETCH_ASSOC)) {
+            $item = array(
+                'id' => $row['Id_user'],
+                'nombre' => $row['nombre'],
+                'apellido' => $row['apellido'],
+                'estado' => $row['estado']
+            );
+            array_push($usuarios, $item);
+        }
+        printJSON($usuarios);
+    }else {
+        error("0");
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['eliminar'])){
+
+    $id = $_GET["eliminar"];
+
+    $resp = $usuario->eliminar_usuario($id);
+
+    if ($resp){
+        error("1");
+    }else {
+        error("0");
+    }
+}
+
 function error($mensaje){
     print_r(json_encode(array('mensaje' => $mensaje)));
 }

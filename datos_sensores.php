@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['micro'])){
 
     if ($ilum->rowCount()){
         while ($row = $ilum->fetch(PDO::FETCH_ASSOC)){
-            $luz_il = $row['estado_luz'];
+            $luz_il = $row['luces'];
 
         }
     }else{
