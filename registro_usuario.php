@@ -33,8 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['lista'])){
         while ($row = $resp->fetch(PDO::FETCH_ASSOC)) {
             $item = array(
                 'id' => $row['Id_user'],
+                'cedula' => $row['cedula'],
                 'nombre' => $row['nombre'],
                 'apellido' => $row['apellido'],
+                'naci' => $row['fecha_nacimiento'],
                 'estado' => $row['estado']
             );
             array_push($usuarios, $item);

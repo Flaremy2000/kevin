@@ -1,10 +1,13 @@
+
 <?php
 
 include_once "visualizador.php";
 $visual = new visualizador();
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['config'])){
+header('Content-type: application/json');
 
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['config'])){
+    
     $conf = $visual->obtener_configuracion();
 
     $tem_max = 0;
@@ -20,5 +23,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['config'])){
             $peso_min = $row['peso_min'];
         }
     }
-    echo $tem_max.",".$tem_min.",".$peso_max.",".$peso_min;
+    echo "v=".$tem_max.",".$tem_min.",".$peso_max.",".$peso_min;
 }

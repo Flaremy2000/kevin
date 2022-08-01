@@ -79,6 +79,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['micro'])){
     printJSON($parametros);
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['luces'])){
+
+
+
+}
+
+
+
 function error($mensaje){
     print_r(json_encode(array('mensaje' => $mensaje)));
 }

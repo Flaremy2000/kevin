@@ -1,62 +1,1 @@
-<?php
-
-include_once 'conexion.php';
-
-class visualizador extends conexion{
-
-    function  obtener_comida($microchip){
-        $query = $this->conexion->prepare("SELECT * FROM comedero WHERE Id_micro = :id ORDER BY Id_comedero desc limit 1");
-        $query->execute(['id' => $microchip]);
-        return $query;
-    }
-
-    function obtener_agua($microchip){
-        $query = $this->conexion->prepare("SELECT * FROM bebedero WHERE Id_micro = :id ORDER BY Id_bebedero desc limit 1");
-        $query->execute(['id' => $microchip]);
-        return $query;
-    }
-
-    function obtener_temperatura(){
-        $query = $this->conexion->prepare("SELECT * FROM temperatura ORDER BY Id_temperatura desc limit 1");
-        $query->execute();
-        return $query;
-    }
-
-    function obtener_iluminacion(){
-        $query = $this->conexion->prepare("SELECT * FROM Configuracion_temperatura ORDER BY Id_temperatura desc limit 1");
-        $query->execute();
-        return $query;
-    }
-
-    function obtener_configuracion(){
-        $query = $this->conexion->prepare("SELECT * FROM configuraciones ORDER BY id_config desc limit 1");
-        $query->execute();
-        return $query;
-    }
-
-    function registrar_comida($chipid, $comida, $fecha){
-        $query = $this->conexion->prepare("INSERT INTO `comedero` (`Id_micro`, `peso`, `fecha_lectura`) VALUES (:micro, :pesas, :fecha)");
-        $query->bindParam(':micro', $chipid, PDO::PARAM_STR);
-        $query->bindParam(':pesas', $comida, PDO::PARAM_STR);
-        $query->bindParam(':fecha', $fecha, PDO::PARAM_STR);
-        $query->execute();
-        if ($query){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    function registrar_agua($chipid, $agua, $fecha){
-        $query = $this->conexion->prepare("INSERT INTO `bebedero` (`Id_micro`, `estado`, `fecha_lectura`) VALUES (:micro, :pesas, :fecha)");
-        $query->bindParam(':micro', $chipid, PDO::PARAM_STR);
-        $query->bindParam(':pesas', $agua, PDO::PARAM_STR);
-        $query->bindParam(':fecha', $fecha, PDO::PARAM_STR);
-        $query->execute();
-        if ($query){
-            return true;
-        }else{
-            return false;
-        }
-    }
-}
+<?phpinclude_once 'conexion.php';class visualizador extends conexion{    function  obtener_comida($microchip){        $query = $this->conexion->prepare("SELECT * FROM comedero WHERE Id_micro = :id ORDER BY Id_comedero desc limit 1");        $query->execute(['id' => $microchip]);        return $query;    }    function obtener_agua($microchip){        $query = $this->conexion->prepare("SELECT * FROM bebedero WHERE Id_micro = :id ORDER BY Id_bebedero desc limit 1");        $query->execute(['id' => $microchip]);        return $query;    }    function obtener_temperatura(){        $query = $this->conexion->prepare("SELECT * FROM temperatura ORDER BY Id_temperatura desc limit 1");        $query->execute();        return $query;    }     function obtener_iluminacion(){         $query = $this->conexion->prepare("SELECT * FROM Configuracion_temperatura ORDER BY Id_conf desc limit 1");         $query->execute();         return $query;     }    function obtener_configuracion(){        $query = $this->conexion->prepare("SELECT * FROM configuraciones ORDER BY id_config desc limit 1");        $query->execute();        return $query;    }        function configuracion_temperatura(){        $query = $this->conexion->prepare("SELECT * FROM Configuracion_temperatura ORDER BY Id_conf desc limit 1");        $query->execute();        return $query;    }    function registrar_comida($chipid, $comida, $fecha){        $query = $this->conexion->prepare("INSERT INTO `comedero` (`Id_micro`, `peso`, `fecha_lectura`) VALUES (:micro, :pesas, :fecha)");        $query->bindParam(':micro', $chipid, PDO::PARAM_STR);        $query->bindParam(':pesas', $comida, PDO::PARAM_STR);        $query->bindParam(':fecha', $fecha, PDO::PARAM_STR);        $query->execute();        if ($query){            return true;        }else{            return false;        }    }    function registrar_agua($chipid, $agua, $fecha){        $query = $this->conexion->prepare("INSERT INTO `bebedero` (`Id_micro`, `estado`, `fecha_lectura`) VALUES (:micro, :estado, :fecha)");        $query->bindParam(':micro', $chipid, PDO::PARAM_STR);        $query->bindParam(':estado', $agua, PDO::PARAM_STR);        $query->bindParam(':fecha', $fecha, PDO::PARAM_STR);        $query->execute();        if ($query){            return true;        }else{            return false;        }    }            function registrar_temperatura($temp, $hum, $venti, $luz, $fecha){        $query = $this->conexion->prepare("INSERT INTO `temperatura` (`temperatura_promedio`, `humedad_promedio`, `estado_ventilador`, `estado_luz`, `fecha_lectura`) VALUES (:temp, :hum, :vent, :luz, :fecha)");        $query->bindParam(':temp', $temp, PDO::PARAM_STR);        $query->bindParam(':hum', $hum, PDO::PARAM_STR);        $query->bindParam(':vent', $venti, PDO::PARAM_STR);        $query->bindParam(':luz', $luz, PDO::PARAM_STR);        $query->bindParam(':fecha', $fecha, PDO::PARAM_STR);        $query->execute();        if ($query){            return true;        }else{            return false;        }    }    function editar_luces($luz){        $query = $this->conexion->prepare("UPDATE `Configuracion_temperatura` SET `luces`= :luz WHERE 1");        $query->bindParam(':luz', $luz, PDO::PARAM_STR);        $query->execute();    }    function editar_ventiladores($venti){        $query = $this->conexion->prepare("UPDATE `Configuracion_temperatura` SET `ventiladores`= :luz WHERE 1");        $query->bindParam(':luz', $venti, PDO::PARAM_STR);        $query->execute();    }    function  editartemp($tempmax, $tempmin){        $query = $this->conexion->prepare("UPDATE `Configuracion_temperatura` SET `temp_max`= :max, `temp_min`= :min WHERE 1");        $query->bindParam(':max', $tempmax, PDO::PARAM_STR);        $query->bindParam(':min', $tempmin, PDO::PARAM_STR);        $query->execute();    }    function  editarconfig($pesomax, $pesomin){        $query = $this->conexion->prepare("UPDATE `configuraciones` SET `peso_max`= :max, `peso_min`= :min WHERE 1");        $query->bindParam(':max', $pesomax, PDO::PARAM_STR);        $query->bindParam(':min', $pesomin, PDO::PARAM_STR);        $query->execute();    }}?>
